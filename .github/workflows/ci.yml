@@ -15,32 +15,17 @@ jobs:
           node-version: 18.x
       - run: npm install
 
-      - name: Cypress install
-        uses: cypress-io/github-action@v5
-        with:
-          # Disable running of tests within install job
-          runTests: false
-          build: npm run build
-
-      - name: Save build folder
-        uses: actions/upload-artifact@v3
-        with:
-          name: build
-          if-no-files-found: error
-          path: dist
-
   unit-tests:
     runs-on: ubuntu-latest
-    needs: install
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
+      - name: Install
+        uses: actions/setup-node@v3
         with:
-          name: build
-          path: dist
+          node-version: 18.x
+      - run: npm install
 
       - name: Test
         run: npm run test -- --watch=false --browsers=ChromeHeadless
@@ -54,14 +39,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Download the build folder
-        uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: dist
-
       - name: Cypress run
-        uses: cypress-io/github-action@v5
-        with:
-          start: npm run start
-          browser: chrome
+        run: npm run e2e

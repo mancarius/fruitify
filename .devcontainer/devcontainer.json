@@ -1,0 +1,24 @@
+// See https://containers.dev/implementors/json_reference/ for configuration reference
+{
+  "name": "Untitled Node.js project",
+  "build": {
+    "context": "..",
+    "dockerfile": "Dockerfile"
+  },
+  "privileged": true,
+  "postCreateCommand": "sudo npm ci && sudo chown -R $USER:$GROUP /root/.cache/Cypress && sudo chmod -R 777 /root/.cache/Cypress",
+  "remoteUser": "node",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/angular-cli:2": {
+      "version": "15"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "angular.ng-template"
+      ]
+    }
+  }
+}

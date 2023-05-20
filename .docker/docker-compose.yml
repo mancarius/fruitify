@@ -1,0 +1,32 @@
+version: '3.2'
+
+services:
+  # this is the web application we are going to test
+  app:
+    build:
+      context: ../.
+      target: builder
+    ports:
+      - 4200:4200
+    volumes:
+      - ../.:/project
+      - /project/node_modules
+    networks:
+      - my-net
+
+  # Cypress container
+  cypress:
+    # the Docker image to use from https://github.com/cypress-io/cypress-docker-images
+    image: "cypress/included:12.10.0"
+    depends_on:
+      - app
+    # share the current folder as volume to avoid copying
+    working_dir: /cypress
+    volumes:
+      - ../cypress:/cypress
+      - ./config/cypress.config.js:/cypress/cypress.config.js
+    networks:
+      - my-net
+
+networks:
+  my-net:

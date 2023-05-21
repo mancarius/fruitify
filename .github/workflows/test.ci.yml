@@ -30,13 +30,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Install
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          cache: 'npm'
-          cache-dependency-path: package-lock.json
-      - run: npm ci
-
       - name: Cypress run
-        run: npm run e2e
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build
+          start: npm run start
+          browser: chrome

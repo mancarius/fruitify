@@ -35,7 +35,7 @@ jobs:
         with:
           start: npm run start -- --configuration=production
           browser: chrome
-          wait-on: http://127.0.0.1:4200/
+          wait-on: http://ip6-localhost:4200/
           parallel: true # Runs test in parallel using settings above
           record: true # Records to Cypress Cloud
         env:

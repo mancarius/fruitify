@@ -7,6 +7,10 @@ export default defineConfig({
   downloadsFolder: 'cypress/downloads',
   video: false,
   screenshotOnRunFailure: true,
+  env: {
+    CYPRESS_DISABLE_HARDWARE_ACCELERATION: 1
+  },
+  
   e2e: {
     baseUrl: "http://localhost:4200",
     supportFile: false,

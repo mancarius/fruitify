@@ -1,9 +1,9 @@
-name: CI
+name: Test CI
 
 on: [push, pull_request]
 
 jobs:
-  install:
+  unit_tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -13,31 +13,30 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - run: npm install
-
-  unit-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Install
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-      - run: npm install
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - run: npm ci
 
       - name: Test
         run: npm run test -- --watch=false --browsers=ChromeHeadless
         env:
           CI: true
   
-  cypress-run:
+  cypress_run:
     runs-on: ubuntu-latest
-    needs: install
+    if: ${{success()}}
+    needs: [unit_tests]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Install
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+      - run: npm ci
 
       - name: Cypress run
         run: npm run e2e

@@ -1,4 +1,6 @@
-# Fruitify [![Tests](https://github.com/mancarius/fruitify/actions/workflows/test.ci.yml/badge.svg)](https://github.com/mancarius/fruitify/actions/workflows/test.ci.yml)
+[![Tests](https://github.com/mancarius/fruitify/actions/workflows/test.ci.yml/badge.svg)](https://github.com/mancarius/fruitify/actions/workflows/test.ci.yml)
+
+# Fruitify 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.6.
 

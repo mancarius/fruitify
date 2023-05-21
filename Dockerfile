@@ -14,7 +14,7 @@ ENV DEVCONTAINER=true
 RUN mkdir /project
 WORKDIR /project
 
-RUN npm install -g @angular/cli@15
+RUN npm install -g @angular/cli@16
 
 # Copia i file di dipendenze
 COPY package.json package-lock.json ./
